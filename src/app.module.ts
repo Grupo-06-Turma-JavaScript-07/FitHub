@@ -1,5 +1,7 @@
+import { CategoryModule } from './category/category.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Category } from './category/entities/category.entity';
 
 @Module({
   imports: [
@@ -10,9 +12,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'root',
       password: 'root',
       database: 'db_fithub',
-      entities: [], //liga as minhas classes no banco de dados
+      entities: [Category],
       synchronize: true,
-    }),
+    })
+    CategoryModule
   ],
   controllers: [],
   providers: [],
