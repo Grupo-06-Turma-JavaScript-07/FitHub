@@ -19,6 +19,5 @@ import { Category } from './category/entities/category.entity';
   ],
   controllers: [],
   providers: [],
-
 })
 export class AppModule { }
