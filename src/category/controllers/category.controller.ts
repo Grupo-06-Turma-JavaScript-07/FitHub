@@ -20,8 +20,8 @@ findById(@Param('id', ParseIntPipe) id: number): Promise < Category > {
 
 @Get('/category/:category')
 @HttpCode(HttpStatus.OK)
-findAllByCategory(@Param('category') category: string): Promise < Category[] > {
-  return this.categoryService.findAllByCategory(category);
+findAllByCategories(@Param('category') category: string): Promise < Category[] > {
+  return this.categoryService.findAllByCategories(category);
 }
 
 @Post()
