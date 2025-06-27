@@ -8,18 +8,25 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
-  ) {}
+  ) { }
 
   // Buscar todos os usuários
   async findAll(): Promise<User[]> {
-    return await this.userRepository.find();
+    return await this.userRepository.find({
+      relations: {
+        product: true
+      }
+    });
+
   }
 
   // Buscar usuário por ID
   async findById(id: number): Promise<User> {
     const user = await this.userRepository.findOne({
       where: { id },
+      relations: { product: true }
     });
+
 
     if (!user)
       throw new HttpException('Usuário não encontrado!', HttpStatus.NOT_FOUND);
@@ -31,6 +38,7 @@ export class UserService {
   async findAllByNome(nome: string): Promise<User[]> {
     return await this.userRepository.find({
       where: { nome: ILike(`%${nome}%`) },
+      relations: { product: true }
     });
   }
 
