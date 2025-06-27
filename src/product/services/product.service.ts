@@ -7,15 +7,15 @@ import { Product } from '../entities/product.entities';
 export class ProductService {
   constructor(
     @InjectRepository(Product)
-    private postagemRepository: Repository<Product>,
-  ) { }
+    private productRepository: Repository<Product>,
+  ) {}
 
   async findAll(): Promise<Product[]> {
-    return await this.postagemRepository.find();
+    return await this.productRepository.find();
   }
 
   async findById(id: number): Promise<Product> {
-    const product = await this.cadastroRepository.findOne({
+    const product = await this.productRepository.findOne({
       where: {
         id,
       },
@@ -27,16 +27,16 @@ export class ProductService {
     return product;
   }
 
-  async findAllByNome(nome: string): Promise<Product[]> {
-    return await this.nomeRepository.find({
+  async findAllByName(name: string): Promise<Product[]> {
+    return await this.productRepository.find({
       where: {
-        nome: ILike(`%${nome}%`),
+        name: ILike(`%${name}%`),
       },
     });
   }
 
   async create(exercicio: Product): Promise<Product> {
-    return await this.exercicio.Repository.save(exercicio);
+    return await this.productRepository.save(exercicio);
   }
 
   async update(exercicio: Product): Promise<Product> {
@@ -45,7 +45,7 @@ export class ProductService {
     if (!buscaExercicio || !exercicio.id)
       throw new HttpException('Treino não encontrado!', HttpStatus.NOT_FOUND);
 
-    return await this.exercicioRepository.save(exercicio);
+    return await this.productRepository.save(exercicio);
   }
 
   async delete(id: number): Promise<DeleteResult> {
@@ -54,6 +54,6 @@ export class ProductService {
     if (!buscaExercicio)
       throw new HttpException('Treino não encontrado!', HttpStatus.NOT_FOUND);
 
-    return await this.exercicioRepository.delete(id);
+    return await this.productRepository.delete(id);
   }
 }

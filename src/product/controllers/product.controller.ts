@@ -31,14 +31,14 @@ export class ProductController {
 
   @Get('/exercicio/:exercicio')
   @HttpCode(HttpStatus.OK)
-  findByAllNome(@Param('nome') nome: string): Promise<Product[]> {
-    return this.productService.findAllByNome(nome);
+  findByAllName(@Param('name') name: string): Promise<Product[]> {
+    return this.productService.findAllByName(name);
   }
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(@Body() product: Product): Promise<Product> {
-    return this.productService.create(Product);
+    return this.productService.create(product);
   }
 
   @Put()

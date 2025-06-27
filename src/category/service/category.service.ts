@@ -34,10 +34,10 @@ export class CategoryService {
     return category;
   }
 
-  async findAllByCategories(categories: string): Promise<Category[]> {
+  async findAllByCategories(category: string): Promise<Category[]> {
     return await this.categoryRepository.find({
       where: {
-        categories: ILike(`%${categories}%`),
+        category: ILike(`%${category}%`),
       },
       relations: {
         product: true,

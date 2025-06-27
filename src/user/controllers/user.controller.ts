@@ -10,8 +10,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { User } from '../entities/User.entity';
-import { UserService } from '../services/User.service';
+import { User } from '../entities/user.entity';
+import { UserService } from '../service/user.service';
 
 @Controller('/user')
 export class UserController {
@@ -25,8 +25,8 @@ export class UserController {
 
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
-  FindById(@Param('id', ParseIntPipe) id: number): Promise<User> {
-    return this.userService.FindById(id);
+  findById(@Param('id', ParseIntPipe) id: number): Promise<User> {
+    return this.userService.findById(id);
   }
 
   @Get('/nome/:nome')
