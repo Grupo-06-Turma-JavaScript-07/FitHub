@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Product } from './entities/product.entities';
+import { ProductService } from './services/product.service';
+import { ProductController } from './controllers/product.controller';
 
 @Module({
-  imports: [], //add o tema module para que possamos acessar a classe
-  providers: [],
-  controllers: [],
+  imports: [TypeOrmModule.forFeature([Product])],
+  providers: [ProductService],
+  controllers: [ProductController],
   exports: [],
 })
-export class ProductModule { }
+export class ProductModule {}
