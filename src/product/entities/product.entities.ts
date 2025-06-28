@@ -10,7 +10,7 @@ export class Product {
   id: number;
 
   @IsNotEmpty()
-  @Column()
+  @Column() 
   name: string;
 
   @Column({ length: 100, nullable: true })
