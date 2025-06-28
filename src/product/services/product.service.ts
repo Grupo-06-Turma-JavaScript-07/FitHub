@@ -1,6 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, ILike, Repository } from 'typeorm';
+import { CategoryService } from '../../category/service/category.service';
+import { UserService } from '../../user/service/user.service';
 import { Product } from '../entities/product.entities';
 
 @Injectable()
@@ -8,6 +10,8 @@ export class ProductService {
   constructor(
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
+    private UserService: UserService,
+    private CategoryService: CategoryService,
   ) {}
 
   async findAll(): Promise<Product[]> {
@@ -40,6 +44,7 @@ export class ProductService {
   }
 
   async create(exercicio: Product): Promise<Product> {
+    await this.UserService.findById(exercicio.user.id);
     return await this.productRepository.save(exercicio);
   }
 
