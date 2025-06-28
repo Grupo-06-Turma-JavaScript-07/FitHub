@@ -45,6 +45,7 @@ export class ProductService {
 
   async create(exercicio: Product): Promise<Product> {
     await this.UserService.findById(exercicio.user.id);
+    await this.CategoryService.findById(exercicio.category.id);
     return await this.productRepository.save(exercicio);
   }
 
