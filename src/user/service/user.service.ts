@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, ILike, Repository } from 'typeorm';
+import { DeleteResult, ILike, Not, Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 
 @Injectable()
@@ -42,20 +42,44 @@ export class UserService {
     });
   }
 
-  // Criar novo usuário
+  // Criar novo usuário (aletarção com inclusão de cadastro unico de nome)
   async create(user: User): Promise<User> {
-    return await this.userRepository.save(user);
+  const usuarioExistente = await this.userRepository.findOne({
+    where: { usuario: user.usuario }
+  });
+
+  if (usuarioExistente) {
+    throw new HttpException(
+      'Usuário já cadastrado com este e-mail!',
+      HttpStatus.BAD_REQUEST
+    );
   }
 
-  // Atualizar usuário
+  return await this.userRepository.save(user);
+  }
+
+  // Atualizar usuário (inclusao da busca por duplicidade do nome)
   async update(user: User): Promise<User> {
     const buscaUser = await this.findById(user.id);
+    const existingUser = await this.userRepository.findOne({
+      where: {
+        nome: user.nome,
+        id: Not(user.id) // Procura em todos, EXCETO no usuário que estamos atualizando
+      }
+    })
 
     if (!buscaUser || !user.id)
       throw new HttpException('Usuário não encontrado!', HttpStatus.NOT_FOUND);
+    
+    // Se encontrou, lança o erro de conflito
+    if (existingUser) {
+      throw new HttpException('Nome de usuário já cadastrado!', HttpStatus.CONFLICT);
+    }
 
     return await this.userRepository.save(user);
+    
   }
+
 
   // Deletar usuário por ID
   async delete(id: number): Promise<DeleteResult> {
