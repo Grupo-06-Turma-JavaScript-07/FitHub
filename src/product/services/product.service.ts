@@ -8,12 +8,12 @@ export class ProductService {
   constructor(
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
-  ) { }
+  ) {}
 
   async findAll(): Promise<Product[]> {
-    return await this.productRepository.find(
-      { relations: { user: true, category: true } },
-    );
+    return await this.productRepository.find({
+      relations: { user: true, category: true },
+    });
   }
 
   async findById(id: number): Promise<Product> {
@@ -21,7 +21,7 @@ export class ProductService {
       where: {
         id,
       },
-      relations: { user: true, category: true }
+      relations: { user: true, category: true },
     });
 
     if (!product)
@@ -35,7 +35,7 @@ export class ProductService {
       where: {
         name: ILike(`%${name}%`),
       },
-      relations: { user: true, category: true }
+      relations: { user: true, category: true },
     });
   }
 

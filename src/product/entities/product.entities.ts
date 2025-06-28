@@ -24,11 +24,11 @@ export class Product {
   @Column({ length: 100, nullable: false })
   time: string;
 
-  @Column('float', { nullable: true })
-  height?: number; // em metros
+  // @Column('float', { nullable: true })
+  // height?: number; // em metros
 
-  @Column('float', { nullable: true })
-  weight?: number; // em kg
+  // @Column('float', { nullable: true })
+  // weight?: number; // em kg
 
   @ManyToOne(() => User, (user) => user.product, {
     onDelete: 'CASCADE'
@@ -42,10 +42,10 @@ export class Product {
 
 
   // IMC = peso / (altura * altura)
-  get imc(): number | null {
-    if (this.height && this.weight) {
-      return Number((this.weight / (this.height * this.height)).toFixed(2));
-    }
-    return null;
-  }
+  // get imc(): number | null {
+  //   if (this.height && this.weight) {
+  //     return Number((this.weight / (this.height * this.height)).toFixed(2));
+  //   }
+  //   return null;
+  // }
 }
