@@ -53,6 +53,8 @@ export class UserService {
       );
     }
 
+    user.imc = Number((user.weight / (user.height * user.height)).toFixed(2));
+
     return await this.userRepository.save(user);
   }
 
@@ -76,6 +78,7 @@ export class UserService {
         HttpStatus.CONFLICT,
       );
     }
+    user.imc = Number((user.weight / (user.height * user.height)).toFixed(2));
 
     return await this.userRepository.save(user);
   }

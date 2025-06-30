@@ -24,6 +24,17 @@ export class User {
   @Column({ length: 255, nullable: true })
   foto?: string;
 
+  @IsNotEmpty()
+  @Column({ nullable: true, type: 'decimal' })
+  height: number; // em metros
+
+  @IsNotEmpty()
+  @Column({ nullable: true, type: 'decimal' })
+  weight: number; // em kg
+
+  @Column({ type: 'decimal' })
+  imc: number;
+
   @OneToMany(() => Product, (product) => product.user)
   product: Product[];
 }
