@@ -29,7 +29,7 @@ export class ProductController {
     return this.productService.findById(id);
   }
 
-  @Get('/exercicio/:exercicio')
+  @Get('/exercicio/:name')
   @HttpCode(HttpStatus.OK)
   findByAllName(@Param('name') name: string): Promise<Product[]> {
     return this.productService.findAllByName(name);
