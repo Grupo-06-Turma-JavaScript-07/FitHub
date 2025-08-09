@@ -11,7 +11,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { ProductService } from '../services/product.service';
-import { Product } from './../entities/product.entities';
+import { Product } from './../entities/product.entity';
 
 @Controller('/product')
 export class ProductController {

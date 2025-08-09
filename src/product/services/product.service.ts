@@ -10,8 +10,8 @@ export class ProductService {
   constructor(
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
-    private UserService: UserService,
-    private CategoryService: CategoryService,
+    private userService: UserService,
+    private categoryService: CategoryService,
   ) {}
 
   async findAll(): Promise<Product[]> {
@@ -44,8 +44,8 @@ export class ProductService {
   }
 
   async create(exercicio: Product): Promise<Product> {
-    await this.UserService.findById(exercicio.user.id);
-    await this.CategoryService.findById(exercicio.category.id);
+    await this.userService.findById(exercicio.user.id);
+    await this.categoryService.findById(exercicio.category.id);
     return await this.productRepository.save(exercicio);
   }
 
