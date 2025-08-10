@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, ILike, Repository } from 'typeorm';
 import { CategoryService } from '../../category/service/category.service';
 import { UserService } from '../../user/service/user.service';
-import { Product } from '../entities/product.entities';
+import { Product } from '../entities/product.entity';
 
 @Injectable()
 export class ProductService {

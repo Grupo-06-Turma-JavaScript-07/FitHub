@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Product } from './../../product/entities/product.entities';
+import { Product } from './../../product/entities/product.entity';
 
 @Entity({ name: 'tb_user' })
 export class User {
