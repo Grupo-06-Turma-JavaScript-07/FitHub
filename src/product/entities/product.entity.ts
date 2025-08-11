@@ -13,11 +13,11 @@ export class Product {
   @Column() 
   name: string;
 
-  @Column({ length: 100, nullable: true })
+  @Column({ length: 1000, nullable: true })
   description: string;
 
   @IsNotEmpty()
-  @Column({ length: 100, nullable: false })
+  @Column({ length: 1000, nullable: false })
   execution: string;
 
   @IsNotEmpty()

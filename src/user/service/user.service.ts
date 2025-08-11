@@ -8,7 +8,7 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
-  ) {}
+  ) { }
 
   // Buscar todos os usuários
   async findAll(): Promise<User[]> {
@@ -58,6 +58,7 @@ export class UserService {
     return await this.userRepository.save(user);
   }
 
+
   // Atualizar usuário (inclusao da busca por duplicidade do nome)
   async update(user: User): Promise<User> {
     const buscaUser = await this.findById(user.id);
@@ -92,4 +93,14 @@ export class UserService {
 
     return await this.userRepository.delete(id);
   }
+
+  async findByUsuario(usuario: string): Promise<User | null> {
+    return await this.userRepository.findOne({
+      where: {
+        usuario: usuario, // Procura um usuário com este email
+      },
+    });
+  }
+  
+
 }

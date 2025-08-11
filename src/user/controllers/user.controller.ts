@@ -2,8 +2,10 @@ import {
   Body,
   Controller,
   Delete,
+  ForbiddenException,
   Get,
   HttpCode,
+  HttpException,
   HttpStatus,
   Param,
   ParseIntPipe,
@@ -15,7 +17,7 @@ import { UserService } from '../service/user.service';
 
 @Controller('/user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Get()
   @HttpCode(HttpStatus.OK)
@@ -39,6 +41,21 @@ export class UserController {
   @HttpCode(HttpStatus.CREATED)
   create(@Body() user: User): Promise<User> {
     return this.userService.create(user);
+  }
+
+  @Post('/logar')
+  @HttpCode(HttpStatus.OK)
+  async logar(@Body() user: User): Promise<User> {
+    const buscaUsuario = await this.userService.findByUsuario(user.usuario);
+
+    if (!buscaUsuario)
+      throw new HttpException('Usuário não encontrado!', HttpStatus.NOT_FOUND);
+
+    // Esta é uma verificação de senha simples. SEM criptografia (bcrypt).
+    if (buscaUsuario.senha !== user.senha)
+      throw new ForbiddenException('Senha inválida!');
+
+    return buscaUsuario;
   }
 
   @Put()
